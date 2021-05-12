@@ -1,7 +1,7 @@
 package vn.htv.fresher.todoapp.di
 
 import android.content.Context
-import  org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import vn.htv.fresher.todoapp.data.repository.CategoryRepositoryImpl
@@ -20,11 +20,7 @@ import vn.htv.fresher.todoapp.domain.usecase.subtask.GetSubTaskListUseCase
 import vn.htv.fresher.todoapp.domain.usecase.subtask.GetSubTaskUseCase
 import vn.htv.fresher.todoapp.domain.usecase.subtask.SaveSubTaskUseCase
 import vn.htv.fresher.todoapp.domain.usecase.subtask.UpdateSubTaskUseCase
-import vn.htv.fresher.todoapp.domain.usecase.task.DeleteTaskUseCase
-import vn.htv.fresher.todoapp.domain.usecase.task.GetTaskListUseCase
-import vn.htv.fresher.todoapp.domain.usecase.task.GetTaskUseCase
-import vn.htv.fresher.todoapp.domain.usecase.task.SaveTaskUseCase
-import vn.htv.fresher.todoapp.domain.usecase.task.UpdateTaskUseCase
+import vn.htv.fresher.todoapp.domain.usecase.task.*
 import vn.htv.fresher.todoapp.presentation.category.CategoryViewModel
 import vn.htv.fresher.todoapp.presentation.main.MainViewModel
 import vn.htv.fresher.todoapp.util.rx.AppSchedulerProvider
