@@ -29,7 +29,7 @@ class CategoryActivity : BaseActivity() {
 
   override fun init() {
     super.init()
-    val catId = intent.getLongExtra(PARAM_EXTRA_CATEGORY_ID, 0)
+    val catId = intent.getLongExtra(PARAM_EXTRA_CATEGORYID, 0)
     viewModel.categoryId = catId
   }
 
@@ -99,13 +99,13 @@ class CategoryActivity : BaseActivity() {
   }
 
   companion object {
-    const val PARAM_EXTRA_CATEGORY_ID = "category"
+    const val PARAM_EXTRA_CATEGORYID = "category"
 
     fun start(activity: AppCompatActivity, catId: Long) {
       val intent = Intent(activity, CategoryActivity::class.java)
 
       intent.apply {
-        putExtra(PARAM_EXTRA_CATEGORY_ID, catId)
+        putExtra(PARAM_EXTRA_CATEGORYID, catId)
       }
 
       activity.startActivity(intent)
