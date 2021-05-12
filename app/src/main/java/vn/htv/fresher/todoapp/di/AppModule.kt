@@ -60,6 +60,6 @@ val appModule = module {
   // ViewModel
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  viewModel { MainViewModel(get(), get(), get(), get()) }
   viewModel { CategoryViewModel(get(), get(), get(), get(), get(), get()) }
+  viewModel { MainViewModel(get(), get(), get(), get()) }
 }
