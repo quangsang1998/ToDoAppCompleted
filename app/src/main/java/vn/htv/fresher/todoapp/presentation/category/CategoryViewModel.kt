@@ -56,7 +56,7 @@ class CategoryViewModel(
       )
   }
 
-  fun loadData() {
+  fun loadTask() {
     val id = categoryId ?: return
 
     disposables += getTaskListUseCase(id.toInt())
@@ -76,10 +76,6 @@ class CategoryViewModel(
 
   fun updateImportant(model: TaskModel) {
     updateTask(model.copy(important = !model.important))
-  }
-
-  fun updateName(model: CategoryModel) {
-    updateCategory(model.copy(name = model.name))
   }
 
   fun updateTask(model: TaskModel) {

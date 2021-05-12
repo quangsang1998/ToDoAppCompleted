@@ -5,12 +5,10 @@
   <item
     android:id="@+id/updateName"
     android:icon="@drawable/ic_baseline_brush_24"
-    android:title="Đổi tên danh sách"
-    app:showAsAction="collapseActionView" />
+    android:title="@string/new_name_category" />
 
   <item
     android:id="@+id/delete"
     android:icon="@drawable/ic_baseline_delete_24"
-    android:title="Xóa danh sách"
-    app:showAsAction="collapseActionView" />
+    android:title="@string/delete_category" />
 </menu>

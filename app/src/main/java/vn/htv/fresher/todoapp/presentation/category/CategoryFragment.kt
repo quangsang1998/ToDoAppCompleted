@@ -32,60 +32,48 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
   override fun init() {
     super.init()
     viewModel.loadCategory()
-    viewModel.loadData()
+    viewModel.loadTask()
     binding.event = EventAddTask()
   }
 
   override fun initUi() {
     super.initUi()
-    recycleView1.apply {
+    taskRecycleView.apply {
       adapter = taskAdapter
     }
   }
 
   override fun registerLiveDataListener() {
     super.registerLiveDataListener()
-      viewModel.itemList.observe(
-        this,
-         {
+      viewModel.itemList.observe(this, {
            taskAdapter.setItems(it)
          }
       )
 
-    viewModel.updateTaskCompleted.observe(
-      this,
-       {
-         viewModel.loadData()
+    viewModel.updateTaskCompleted.observe(this, {
+             viewModel.loadTask()
        }
     )
 
-    viewModel.updateCategoryCompleted.observe(
-      this,
-       {
-         viewModel.loadCategory()
+    viewModel.updateCategoryCompleted.observe(this, {
+             viewModel.loadCategory()
        }
     )
 
-    viewModel.deleteCategoryCompleted.observe(
-      this,
-       {
-         safeActivity.onBackPressed()
-         viewModel.loadCategory()
+    viewModel.deleteCategoryCompleted.observe(this, {
+             safeActivity.onBackPressed()
+             viewModel.loadCategory()
        }
     )
 
-    viewModel.itemCategory.observe(
-      this,
-       {
-         safeActivity.supportActionBar?.title = it.name
+    viewModel.itemCategory.observe(this, {
+             safeActivity.supportActionBar?.title = it.name
        }
     )
 
-    viewModel.addTaskCompleted.observe(
-      this@CategoryFragment,
-       Observer {
-         if (!it) return@Observer
-         viewModel.loadData()
+    viewModel.addTaskCompleted.observe(this@CategoryFragment, Observer {
+             if (!it) return@Observer
+             viewModel.loadTask()
        }
     )
   }

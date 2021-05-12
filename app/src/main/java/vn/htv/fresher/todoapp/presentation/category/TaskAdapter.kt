@@ -43,21 +43,21 @@ class TaskAdapter(
     fun bind(model: TaskModel) {
       binding.model = model
 
-      binding.root.setImportant.setImageResource(
+      binding.root.importantImageView.setImageResource(
         if (model.important) R.drawable.ic_baseline_star_24 else R.drawable.ic_baseline_star_outline_24
       )
 
-      binding.root.setImportant.setOnClickListener {
+      binding.root.importantImageView.setOnClickListener {
         importantCallback.invoke(model)
       }
 
-      binding.root.setComplete.setImageResource(
+      binding.root.completeImageView.setImageResource(
         if (model.finished) R.drawable.ic_baseline_check_circle_24 else R.drawable.ic_baseline_brightness_1_24
       )
 
-      binding.root.textView.paintFlags = if (model.finished) Paint.STRIKE_THRU_TEXT_FLAG else 0
+      binding.root.taskTextView.paintFlags = if (model.finished) Paint.STRIKE_THRU_TEXT_FLAG else 0
 
-      binding.root.setComplete.setOnClickListener {
+      binding.root.completeImageView.setOnClickListener {
         finishedCallback.invoke(model)
       }
     }

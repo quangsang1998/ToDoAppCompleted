@@ -7,12 +7,14 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.LocalDateTime
 import vn.htv.fresher.todoapp.R
 import vn.htv.fresher.todoapp.domain.model.CategoryModel
+import vn.htv.fresher.todoapp.domain.usecase.category.GetCategoryUseCase
 import vn.htv.fresher.todoapp.presentation.common.BaseActivity
 
 class CategoryActivity : BaseActivity() {
@@ -27,14 +29,12 @@ class CategoryActivity : BaseActivity() {
 
   override fun init() {
     super.init()
-    val catId = intent.getLongExtra("category", 0)
+    val catId = intent.getLongExtra(PARAM_EXTRA_CATEGORY_ID, 0)
     viewModel.categoryId = catId
   }
 
   override fun initUi() {
     super.initUi()
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.setDisplayShowHomeEnabled(true)
   }
 
   @SuppressLint("RestrictedApi")
@@ -53,10 +53,10 @@ class CategoryActivity : BaseActivity() {
         return true
       }
       R.id.updateName -> {
-        onNewName()
+        onNewCategoryName()
       }
       R.id.delete -> {
-        deleteName()
+        deletedCategory()
       }
       else -> {
       }
@@ -64,7 +64,7 @@ class CategoryActivity : BaseActivity() {
     return super.onOptionsItemSelected(item)
   }
 
-  fun onNewName() {
+  fun onNewCategoryName() {
     MaterialDialog(this).show {
       title(R.string.new_name_category)
       input(
@@ -75,7 +75,7 @@ class CategoryActivity : BaseActivity() {
             id         = viewModel.categoryId?.toInt(),
             createdAt  = LocalDateTime.now()
           )
-          viewModel.updateName(model)
+          viewModel.updateCategory(model)
           supportActionBar?.title = model.name
         }
       positiveButton(R.string.button_save)
@@ -83,18 +83,15 @@ class CategoryActivity : BaseActivity() {
     }
   }
 
-  fun deleteName() {
+  fun deletedCategory() {
     MaterialDialog(this).show {
       title(R.string.title_delete_category)
       positiveButton(
         res    = R.string.button_delete_category,
         click  = {
-          val model = CategoryModel(
-            name       = supportActionBar?.title.toString(),
-            id         = viewModel.categoryId?.toInt(),
-            createdAt  = LocalDateTime.now()
-          )
-          viewModel.deleteCategory(model)
+          viewModel.itemCategory.observe(this@CategoryActivity, Observer {
+            viewModel.deleteCategory(it)
+          })
         }
       )
       negativeButton(R.string.button_cancel)
@@ -102,9 +99,15 @@ class CategoryActivity : BaseActivity() {
   }
 
   companion object {
+    const val PARAM_EXTRA_CATEGORY_ID = "category"
+
     fun start(activity: AppCompatActivity, catId: Long) {
       val intent = Intent(activity, CategoryActivity::class.java)
-      intent.putExtra("category", catId)
+
+      intent.apply {
+        putExtra(PARAM_EXTRA_CATEGORY_ID, catId)
+      }
+
       activity.startActivity(intent)
     }
   }
